@@ -171,4 +171,11 @@ public class PracticalTest01Var05MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        Intent intent = new Intent(this, PracticalTest01Var05Service.class);
+        stopService(intent);
+        super.onDestroy();
+    }
+
 }
