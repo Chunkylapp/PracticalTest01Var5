@@ -1,6 +1,7 @@
 package ro.pub.cs.systems.eim.practicaltest01var05;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class PracticalTest01Var05MainActivity extends AppCompatActivity {
+
+    private final Integer SERVICE_START = 4;
 
     Button center, topLeft, topRight, bottomLeft, bottomRight, moveToSecondaryActivity;
 
@@ -49,38 +52,62 @@ public class PracticalTest01Var05MainActivity extends AppCompatActivity {
         }
 
         center.setOnClickListener(view -> {
-            outputConcatText += "Center ";
+            outputConcatText += ",Center ";
             textView.setText(outputConcatText);
 
             numberOfClicks++;
+
+            if(numberOfClicks.equals(SERVICE_START)) {
+                startService();
+            }
+
         });
 
         topLeft.setOnClickListener(view -> {
-            outputConcatText += "Top Left ";
+            outputConcatText += ",Top Left ";
             textView.setText(outputConcatText);
 
             numberOfClicks++;
+
+            if(numberOfClicks.equals(SERVICE_START)) {
+                startService();
+            }
+
         });
 
         topRight.setOnClickListener(view -> {
-            outputConcatText += "Top Right ";
+            outputConcatText += ",Top Right ";
             textView.setText(outputConcatText);
 
             numberOfClicks++;
+
+            if(numberOfClicks.equals(SERVICE_START)) {
+                startService();
+            }
+
         });
 
         bottomLeft.setOnClickListener(view -> {
-            outputConcatText += "Bottom Left ";
+            outputConcatText += ",Bottom Left ";
             textView.setText(outputConcatText);
 
             numberOfClicks++;
+
+            if(numberOfClicks.equals(SERVICE_START)) {
+                startService();
+            }
+
         });
 
         bottomRight.setOnClickListener(view -> {
-            outputConcatText += "Bottom Right ";
+            outputConcatText += ",Bottom Right ";
             textView.setText(outputConcatText);
 
             numberOfClicks++;
+
+            if(numberOfClicks.equals(SERVICE_START)) {
+                startService();
+            }
         });
 
         moveToSecondaryActivity.setOnClickListener(view -> {
@@ -130,6 +157,17 @@ public class PracticalTest01Var05MainActivity extends AppCompatActivity {
 
         if(numberOfClicks != -1) {
             Toast.makeText(this, "Number of clicks: " + numberOfClicks, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void startService() {
+        Intent intent = new Intent(this, PracticalTest01Var05Service.class);
+        intent.putExtra("data", outputConcatText);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent);
+        }
+        else {
+            startService(intent);
         }
     }
 
